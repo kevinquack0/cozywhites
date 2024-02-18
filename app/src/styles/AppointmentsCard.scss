@@ -1,0 +1,42 @@
+.appointmentsCardWrapper {
+    width: 900px;
+    height: 800px;
+    border-radius: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 3px 0px #c2c2c2;
+
+    .cardHeader {
+        display: flex;
+
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        column-gap: 100px;
+
+        h3 {
+            margin: 0px;
+            width: 120px;
+        }
+    }
+
+    .cardBody {
+        display: flex;
+        flex-direction: column;
+
+        .appointmentCard {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            column-gap: 100px;
+
+            p,
+            button {
+                width: 120px;
+
+            }
+
+        }
+    }
+}

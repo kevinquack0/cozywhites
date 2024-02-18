@@ -1,0 +1,25 @@
+.calendarWrapper {
+    width: 100%;
+    height: 90%;
+    padding: 30px;
+}
+
+
+.rbc-day-slot.rbc-time-column {
+
+    .rbc-time-slot {
+        &:hover {
+            background-color: #f0f0f0 !important;
+        }
+
+        cursor: pointer;
+        z-index: 1000000000000000000000;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+}
+
+.ui.page.modals.dimmer.transition.visible {
+
+    z-index: 99999999999999999999999999999;
+}
