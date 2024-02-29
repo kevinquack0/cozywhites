@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/AppointmentModal.scss';
 import { Button, Checkbox, Dropdown, Input, Modal, ModalActions, ModalContent, ModalHeader, TextArea } from 'semantic-ui-react';
 
@@ -47,9 +47,14 @@ const clientOptions = [
 
 export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
     const [existingClient, setExistingClient] = useState(false)
+
+
     return (
         <Modal
-            onClose={() => setOpen(false)}
+            onClose={() => {
+                setExistingClient(false)
+                setOpen(false)
+            }}
             onOpen={() => setOpen(true)}
             open={open}
         >
@@ -103,6 +108,13 @@ export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
                 {!existingClient &&
                     <div className='inputPair'>
 
+                        <p> Name:</p>
+                        <Input placeholder='Name' />
+                    </div>
+                }
+                {!existingClient &&
+                    <div className='inputPair'>
+
                         <p> Phone:</p>
                         <Input placeholder='Phone' />
                     </div>
@@ -114,7 +126,10 @@ export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
                 </div>
             </ModalContent>
             <ModalActions>
-                <Button color='red' onClick={() => setOpen(false)}>
+                <Button color='red' onClick={() => {
+                    setExistingClient(false)
+                    setOpen(false)
+                }}>
                     Close
                 </Button>
                 <Button

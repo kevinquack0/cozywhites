@@ -1,8 +1,19 @@
+$primary: #0072CE;
+$grey: #D3D3D3;
+
+
 .homeWrapper {
     display: flex;
     width: 100%;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
+
+    .dateWrapper {
+        font-size: 40px;
+        font-weight: bold;
+        padding-right: 40px;
+        color: $primary
+    }
 
 
     .mainContainer {
@@ -14,7 +25,7 @@
         .topContainer {
             display: flex;
             height: 120px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid $grey;
             align-items: center;
             padding-left: 50px;
             justify-content: space-between;
@@ -22,6 +33,8 @@
             h1 {
                 font-size: 40px;
                 margin: 0px;
+                color: $primary;
+                cursor: pointer;
             }
 
         }

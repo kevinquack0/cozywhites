@@ -30,7 +30,11 @@ export default function AppointmentsCard() {
                             <p>{appointment.patientName}</p>
                             <p>{appointment.doctorName}</p>
                             <p>{appointment.time}</p>
-                            <Button primary>Check In</Button>
+                            <div className='buttonGroup'>
+                                <Button primary>Check In</Button>
+                                <Button color='green'>Follow-up</Button>
+                            </div>
+
                         </div>
 
                     )

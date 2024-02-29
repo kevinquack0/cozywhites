@@ -11,7 +11,7 @@ import PatientInfoModal from "./components/PatientInfoModal";
 function App() {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [time, setTime] = useState(new Date());
-
+  const [reset, setReset] = useState(false)
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date());
@@ -32,28 +32,25 @@ function App() {
         }
       }
     },
-    [selectedStaff, setSelectedStaff]
-  );
+    [selectedStaff, setSelectedStaff],
+  )
+  let format: any = { month: 'long', day: 'numeric' };
 
   return (
     <div className="homeWrapper">
-      <Sidebar onCardClick={onCardClick} />
+      <Sidebar reset={reset} onCardClick={onCardClick} />
 
       <div className="mainContainer">
         <div className="topContainer">
-          <h1>Home</h1>
-          <div
-            style={{
-              fontSize: "50px",
-              fontWeight: "bold",
-              paddingRight: "50px",
-            }}
-          >
-            {time.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })}
+          <h1 onClick={() => {
+            setReset(!reset)
+
+          }}>Home</h1>
+          <div className='dateWrapper'>
+            <span style={{ paddingRight: '20px' }}>
+              {time.toLocaleDateString(undefined, format)}
+            </span>
+            {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}
           </div>
         </div>
 

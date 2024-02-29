@@ -1,9 +1,54 @@
+$primary: #0072CE;
+$grey: #D3D3D3;
+
+.cardActive {
+    border: 2px solid $primary !important;
+}
+
+
+
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 10px;
+
+
+    .search-icon {
+        margin-right: 10px;
+    }
+
+    i {
+        color: $primary;
+        margin-bottom: 5px !important;
+        cursor: pointer;
+    }
+
+    input {
+        flex: 1; // Make the input fill the available space
+        border: none;
+        outline: none;
+    }
+}
+
+
+a.active.item {
+
+    color: $primary !important;
+    border-color: $primary !important;
+}
+
 .sideBarContainer {
     display: flex;
 
     width: 20%;
     height: 100%;
     border-right: 2px solid #e0e0e0;
+
+
+
 
     .sideBar {
         display: flex;

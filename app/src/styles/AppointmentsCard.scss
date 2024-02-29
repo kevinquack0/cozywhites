@@ -1,13 +1,18 @@
+$primary: #0072CE;
+$grey: #D3D3D3;
+
+
 .appointmentsCardWrapper {
-    width: 900px;
-    height: 800px;
+    width: 1000px;
+    height: 700px;
     border-radius: 30px;
     background-color: #fff;
     box-shadow: 0px 0px 3px 0px #c2c2c2;
 
     .cardHeader {
         display: flex;
-
+        background-color: #f3f3f3;
+        border-radius: 20px 20px 0px 0px;
         align-items: center;
         padding: 20px;
         border-bottom: 1px solid #e0e0e0;
@@ -17,6 +22,11 @@
             margin: 0px;
             width: 120px;
         }
+    }
+
+    .buttonGroup {
+        display: flex;
+        column-gap: 15px;
     }
 
     .cardBody {
