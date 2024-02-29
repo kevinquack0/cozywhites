@@ -1,0 +1,50 @@
+.modal-content{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    row-gap: 20px;
+
+    .info-entry{
+        font-size: 20px;
+        font-weight: bold;
+        color: #282c34;
+        margin: 0;
+    }
+
+    .two-items-row{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 10px;
+    }
+
+    .row{
+        padding-top: 10px;
+    }
+
+
+}
+
+.modal-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .close-button{
+        background: none;
+        border:none;
+        border-radius: 9999px;
+    }
+    .close-button:hover{
+        cursor: pointer;
+        background: gray;
+        transition-property: background-color;
+        transition-duration: 100ms;
+    }
+}
+
