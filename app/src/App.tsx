@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import "./styles/home.scss";
-import { TabPane } from "semantic-ui-react";
+import { Icon, TabPane } from "semantic-ui-react";
 import Sidebar from "./components/Sidebar";
 import AppointmentsCard from "./components/AppointmentsCard";
 import AppointmentCalendar from "./components/AppointmentCalendar";
@@ -35,6 +35,9 @@ function App() {
     [selectedStaff, setSelectedStaff],
   )
   let format: any = { month: 'long', day: 'numeric' };
+  useEffect(() => {
+    setSelectedStaff('')
+  }, [reset])
 
   return (
     <div className="homeWrapper">
@@ -55,6 +58,7 @@ function App() {
         </div>
 
         <div className="bottomContainer">
+          {selectedStaff && <Icon name='close' size="big" className="closeIcon" onClick={() => setReset(!reset)} />}
           {!selectedStaff && <AppointmentsCard />}
           {selectedStaff && <AppointmentCalendar />}
         </div>

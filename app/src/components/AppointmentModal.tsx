@@ -45,10 +45,14 @@ const clientOptions = [
     { key: 2, value: 'Jane Doe', text: 'Jane Doe' },
 ];
 
-export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
+export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: any) {
     const [existingClient, setExistingClient] = useState(false)
-
-
+    const [appointmentType, setAppointmentType] = useState('');
+    const [staff, setStaff] = useState('');
+    const [client, setClient] = useState('');
+    const [notes, setNotes] = useState('');
+    const [email, setEmail] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     return (
         <Modal
             onClose={() => {
@@ -100,23 +104,20 @@ export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
                 }
                 {!existingClient &&
                     <div className='inputPair'>
-
                         <p> Email:</p>
-                        <Input placeholder='Email' />
+                        <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
-
                         <p> Name:</p>
-                        <Input placeholder='Name' />
+                        <Input placeholder='Name' onChange={(e) => setClient(e.target.value)} />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
-
                         <p> Phone:</p>
-                        <Input placeholder='Phone' />
+                        <Input placeholder='Phone' onChange={(e) => setPhoneNumber(e.target.value)} />
                     </div>
                 }
                 <div className='textAreainputPair'>
@@ -136,7 +137,19 @@ export default function AppointmentModal({ open, setOpen, slotInfo }: any) {
                     content="Save"
                     labelPosition='right'
                     icon='checkmark'
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                        const appointmentData = {
+                            start: slotInfo.start,
+                            end: slotInfo.end,
+                            title: `Appointment with ${client || 'New Client'}`,
+                            type: appointmentType,
+                            staff,
+                            notes,
+                        };
+                        onSubmit(appointmentData); // Make sure to pass the correct form data structure
+                        setExistingClient(false);
+                        setOpen(false);
+                    }}
                     positive
                 />
             </ModalActions>

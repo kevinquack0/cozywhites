@@ -9,7 +9,7 @@ const localizer = momentLocalizer(moment);
 export default function AppointmentCalendar() {
     const [open, setOpen] = useState(false)
     const [slotInfo, setSlotInfo] = useState()
-    const [events, setEvents] = useState([])
+    const [events, setEvents]: any = useState([])
     // const events = [
     //     {
     //         start: moment().toDate(),
@@ -17,6 +17,13 @@ export default function AppointmentCalendar() {
     //         title: "Sample Appointment",
     //     },
     // ];
+    const handleAddEvent = (appointmentData: any) => {
+        setEvents([...events, {
+            start: appointmentData.start,
+            end: appointmentData.end,
+            title: appointmentData.title,
+        }]);
+    };
 
     const handleSelectSlot = (slotInfo: any) => {
         setSlotInfo(slotInfo)
@@ -31,7 +38,7 @@ export default function AppointmentCalendar() {
 
     return (
         <>
-            <AppointmentModal open={open} setOpen={setOpen} slotInfo={slotInfo} />
+            <AppointmentModal onSubmit={handleAddEvent} open={open} setOpen={setOpen} slotInfo={slotInfo} />
 
             <div className='calendarWrapper'>
                 <Calendar
