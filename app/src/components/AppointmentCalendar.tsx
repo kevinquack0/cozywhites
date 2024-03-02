@@ -5,6 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../styles/AppointmentCalendar.scss';
 import AppointmentModal from './AppointmentModal';
 import { PatientsContext } from '../contexts/patientsContext';
+import { AppointmentsContext } from '../contexts/appointmentsContext';
 const localizer = momentLocalizer(moment);
 
 export default function AppointmentCalendar() {
@@ -14,7 +15,8 @@ export default function AppointmentCalendar() {
     const [selectedEvent, setSelectedEvent]: any = useState(null)
     const { patients, createPatient, selectedPatient, setSelectedPatient } =
         useContext(PatientsContext);
-
+    const { appointments, addAppointment, editAppointment, deleteAppointment } =
+        useContext(AppointmentsContext);
 
     // const events = [
     //     {
@@ -23,10 +25,23 @@ export default function AppointmentCalendar() {
     //         title: "Sample Appointment",
     //     },
     // ];
+
+
+
     const handleAddEvent = (appointmentData: any) => {
         const { start, end, title, type, client, staff, notes, email, phoneNumber, id } = appointmentData;
         const filteredEvents = events.filter((event: any) => event.id !== id);
-
+        createPatient({
+            name: client,
+            gender: "",
+            phoneNumber: phoneNumber,
+            address: "123 Main St",
+            email: email,
+            dob: new Date("1990-01-01"),
+            insurance: "",
+            createdAt: new Date(),
+            notes: ""
+        })
         setEvents([...filteredEvents, {
             start,
             end,
@@ -39,6 +54,17 @@ export default function AppointmentCalendar() {
             phoneNumber,
             id
         }]);
+        addAppointment({
+            id,
+            start,
+            end,
+            title,
+            type,
+            client,
+            staff,
+
+        });
+
     };
 
     const handleSelectSlot = (slotInfo: any) => {

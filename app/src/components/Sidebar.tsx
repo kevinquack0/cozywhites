@@ -3,6 +3,7 @@ import "../styles/sidebar.scss";
 import { Icon, Search, Tab, TabPane } from "semantic-ui-react";
 import { PatientsContext } from "../contexts/patientsContext";
 import classNames from 'classnames';
+import { AppointmentsContext } from "../contexts/appointmentsContext";
 export default function Sidebar({ reset, onCardClick }: any) {
     const [searchTerm, setSearchTerm] = useState('');
     const [activeIndex, setactiveIndex] = useState(0)
@@ -11,6 +12,10 @@ export default function Sidebar({ reset, onCardClick }: any) {
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
+    const { appointments, addAppointment, editAppointment, deleteAppointment } =
+        useContext(AppointmentsContext);
+
+    console.log("patients", patients)
     useEffect(() => {
         setSearchTerm('')
         setSelected('')
@@ -29,20 +34,7 @@ export default function Sidebar({ reset, onCardClick }: any) {
     //
     // ];
 
-    const appointments = [
-        {
-            startTime: "10:00 AM",
-            endTime: "11:00 AM",
-            patientName: "John Doe",
-            staffName: "Dr. Smith",
-        },
-        {
-            startTime: "11:00 AM",
-            endTime: "12:00 PM",
-            patientName: "Jane Doe",
-            staffName: "John grey",
-        },
-    ];
+
 
     const panes = [
         {
@@ -158,15 +150,15 @@ export default function Sidebar({ reset, onCardClick }: any) {
                                     <div className="header">
                                         <h1>
                                             {" "}
-                                            {appointment.startTime}-{appointment.endTime}{" "}
+                                            {appointment.start.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}-{appointment.end.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}{" "}
                                         </h1>
                                     </div>
                                     <div className="body">
                                         <p>
-                                            <strong>Patient:</strong> {appointment.patientName}
+                                            <strong>Patient:</strong> {appointment.client}
                                         </p>
                                         <p>
-                                            <strong>Staff:</strong> {appointment.staffName}
+                                            <strong>Staff:</strong> {appointment.staff}
                                         </p>
                                     </div>
                                 </div>

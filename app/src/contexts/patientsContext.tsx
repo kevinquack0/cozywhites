@@ -1,29 +1,8 @@
 import { createContext, ReactNode, useState } from "react";
 
 // patient data
-let patients: Patient[] = [
-  {
-    name: "John Doe",
-    gender: "male",
-    address: "2500 University Dr NW, Calgary, AB T2N 1N4",
-    email: "john.doe@example.com",
-    phoneNumber: "666-6666-6666",
-    insurance: "12000-3000",
-    notes: "This is a new patient",
-    dob: new Date(),
-    createdAt: new Date(),
-  },
-  {
-    name: "Jane Doe",
-    gender: "female",
-    address: "2500 University Dr NW, Calgary, AB T2N 1N4",
-    email: "jane.doe@example.com",
-    phoneNumber: "098-765-4321",
-    insurance: "12000-3000",
-    notes: "",
-    dob: new Date(),
-    createdAt: new Date(),
-  },
+const initialPatients: Patient[] = [
+
 ];
 
 //types
@@ -55,7 +34,7 @@ type Props = {
 
 // context
 export const PatientsContext = createContext<PatientsContext>({
-  patients: patients,
+  patients: [],
   selectedPatient: null,
   setSelectedPatient: () => { },
   editPatient: false,
@@ -65,10 +44,14 @@ export const PatientsContext = createContext<PatientsContext>({
 
 // context provider
 export const PatientsProvider = ({ children }: Props) => {
+  const [patients, setPatients] = useState<Patient[]>(initialPatients);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [editPatient, setEditPatient] = useState(false);
   const createPatient = (patient: Patient) => {
-    patients = [...patients, patient];
+    console.log("createPatient", patient)
+    const filteredPatients = patients.filter((patientObj: any) => patientObj.name !== patient.name);
+    setPatients([...filteredPatients, patient]);
+    console.log("new patients", patients)
   };
 
   return (

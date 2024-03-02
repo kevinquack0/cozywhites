@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
 import { PatientsProvider } from "./contexts/patientsContext";
+import { AppointmentsProvider } from "./contexts/appointmentsContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <PatientsProvider>
-      <App />
+      <AppointmentsProvider>
+        <App />
+      </AppointmentsProvider>
     </PatientsProvider>
   </React.StrictMode>
 );

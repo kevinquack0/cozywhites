@@ -151,6 +151,7 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                             placeholder='Select Client'
                             fluid
                             search
+                            onChange={(e, data) => { console.log("data", data); setClient(data.value as string) }}
                             value={client}
                             selection
                             options={patients.map((patient: any, index: number) => ({
@@ -217,7 +218,7 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                         const appointmentData = {
                             start: startDate,
                             end: endDate,
-                            title: `Appointment with ${client || 'New Client'}`,
+                            title: `${appointmentType} with ${client || 'New Client'}`,
                             type: appointmentType,
                             client,
                             staff,
