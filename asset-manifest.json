@@ -1,8 +1,10 @@
 {
   "files": {
     "main.css": "/cozywhites/static/css/main.5f4dafe7.css",
-    "main.js": "/cozywhites/static/js/main.358d6362.js",
+    "main.js": "/cozywhites/static/js/main.6ff50b39.js",
     "static/js/453.5565870f.chunk.js": "/cozywhites/static/js/453.5565870f.chunk.js",
+    "static/media/hyg.png": "/cozywhites/static/media/hyg.febaaf3e66465e181cd3.png",
+    "static/media/dent.png": "/cozywhites/static/media/dent.a8eced19044987f1b6ab.png",
     "static/media/brand-icons.svg": "/cozywhites/static/media/brand-icons.6729d29753e000c17489.svg",
     "static/media/icons.svg": "/cozywhites/static/media/icons.62d9dae4e0040e81c980.svg",
     "static/media/outline-icons.svg": "/cozywhites/static/media/outline-icons.9c4845b4b41ef40a22fa.svg",
@@ -21,11 +23,11 @@
     "static/media/outline-icons.woff2": "/cozywhites/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/cozywhites/index.html",
     "main.5f4dafe7.css.map": "/cozywhites/static/css/main.5f4dafe7.css.map",
-    "main.358d6362.js.map": "/cozywhites/static/js/main.358d6362.js.map",
+    "main.6ff50b39.js.map": "/cozywhites/static/js/main.6ff50b39.js.map",
     "453.5565870f.chunk.js.map": "/cozywhites/static/js/453.5565870f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5f4dafe7.css",
-    "static/js/main.358d6362.js"
+    "static/js/main.6ff50b39.js"
   ]
 }
