@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../styles/AppointmentModal.scss';
 import { Button, Checkbox, Dropdown, Input, Modal, ModalActions, ModalContent, ModalHeader, TextArea } from 'semantic-ui-react';
+import _, { set } from 'lodash';
+import { PatientsContext } from '../contexts/patientsContext';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import DatePicker from 'react-datepicker';
 
 const options = [
     {
@@ -45,7 +50,7 @@ const clientOptions = [
     { key: 2, value: 'Jane Doe', text: 'Jane Doe' },
 ];
 
-export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: any) {
+export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, handleCancelEvent, selectedEvent, patients, setSelectedEvent }: any) {
     const [existingClient, setExistingClient] = useState(false)
     const [appointmentType, setAppointmentType] = useState('');
     const [staff, setStaff] = useState('');
@@ -53,12 +58,57 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: 
     const [notes, setNotes] = useState('');
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date(new Date().getTime() + 60 * 60 * 1000)); // initially set to 1 hour after startDate
+
+    useEffect(() => {
+        setEndDate(new Date(startDate.getTime() + 60 * 60 * 1000)); // set to 1 hour after startDate whenever startDate changes
+    }, [startDate]);
+
+    useEffect(() => {
+        if (slotInfo) {
+            setStartDate(slotInfo.start)
+            // setEndDate(slotInfo.end)
+        }
+    }, [slotInfo])
+
+
+    useEffect(() => {
+        if (selectedEvent) {
+            setAppointmentType(selectedEvent.type)
+            setStaff(selectedEvent.staff)
+            setClient(selectedEvent.client)
+            setNotes(selectedEvent.notes)
+            setEmail(selectedEvent.email)
+            setPhoneNumber(selectedEvent.phoneNumber)
+            setStartDate(selectedEvent.start)
+            setOpen(true)
+        }
+    }, [selectedEvent])
+
+
+
+    const clearAndClose = () => {
+        setExistingClient(false);
+        setAppointmentType('');
+        setStaff('');
+        setClient('');
+        setNotes('');
+        setEmail('');
+        setPhoneNumber('');
+        setSelectedEvent(null);
+        setStartDate(new Date());
+        setOpen(false);
+
+    }
+
     return (
         <Modal
             onClose={() => {
                 setExistingClient(false)
-                setOpen(false)
+                clearAndClose()
             }}
+            closeIcon
             onOpen={() => setOpen(true)}
             open={open}
         >
@@ -72,6 +122,8 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: 
                         fluid
                         selection
                         options={options}
+                        value={appointmentType ? appointmentType : _.get(selectedEvent, "type", appointmentType)}
+                        onChange={(e, data) => setAppointmentType(data.value as string)}
                     />
                 </div>
                 <div className='inputPair'>
@@ -82,6 +134,8 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: 
                         fluid
                         selection
                         options={staffOptions}
+                        value={staff ? staff : _.get(selectedEvent, "staff", staff)}
+                        onChange={(e, data) => setStaff(data.value as string)}
                     />
                 </div>
 
@@ -94,61 +148,88 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit }: 
 
                         <p style={{ fontSize: '16px', whiteSpace: 'nowrap' }}> Existing Client:</p>
                         <Dropdown
-                            placeholder='Select Country'
+                            placeholder='Select Client'
                             fluid
                             search
+                            value={client}
                             selection
-                            options={clientOptions}
+                            options={patients.map((patient: any, index: number) => ({
+                                key: index,
+                                text: patient.name,
+                                value: patient.name,
+                            }))}
                         />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
                         <p> Email:</p>
-                        <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+                        <Input value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
                         <p> Name:</p>
-                        <Input placeholder='Name' onChange={(e) => setClient(e.target.value)} />
+                        <Input value={client} placeholder='Name' onChange={(e) => setClient(e.target.value)} />
+                    </div>
+                }
+                {selectedEvent &&
+                    <div className='inputPair'>
+                        <p>Date:</p>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date: Date) => setStartDate(date)}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            className='customDatePicker'
+                            timeIntervals={60}
+                            timeCaption="time"
+                            dateFormat="MMMM d, yyyy h:mm aa"
+                        />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
                         <p> Phone:</p>
-                        <Input placeholder='Phone' onChange={(e) => setPhoneNumber(e.target.value)} />
+                        <Input value={phoneNumber} placeholder='Phone' onChange={(e) => setPhoneNumber(e.target.value)} />
                     </div>
                 }
                 <div className='textAreainputPair'>
 
                     <p> Notes:</p>
-                    <TextArea placeholder='Appointment notes' className='areaText' />
+                    <TextArea value={notes} placeholder='Appointment notes' className='areaText' onChange={(e) => { setNotes(e.target.value) }} />
                 </div>
             </ModalContent>
             <ModalActions>
-                <Button color='red' onClick={() => {
+                {selectedEvent && <Button color='red' onClick={() => {
                     setExistingClient(false)
+                    handleCancelEvent()
                     setOpen(false)
                 }}>
-                    Close
-                </Button>
+                    Cancel Appointment
+                </Button>}
+
                 <Button
                     content="Save"
                     labelPosition='right'
                     icon='checkmark'
                     onClick={() => {
                         const appointmentData = {
-                            start: slotInfo.start,
-                            end: slotInfo.end,
+                            start: startDate,
+                            end: endDate,
                             title: `Appointment with ${client || 'New Client'}`,
                             type: appointmentType,
+                            client,
                             staff,
                             notes,
+                            email,
+                            phoneNumber,
+                            id: selectedEvent ? selectedEvent.id : Math.random().toString(36).substring(7)
                         };
-                        onSubmit(appointmentData); // Make sure to pass the correct form data structure
+                        onSubmit(appointmentData);
                         setExistingClient(false);
-                        setOpen(false);
+                        clearAndClose()
+
                     }}
                     positive
                 />

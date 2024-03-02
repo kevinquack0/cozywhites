@@ -1,23 +1,52 @@
+$primary: #0072CE;
+$grey: #D3D3D3;
+
+
+
 .calendarWrapper {
     width: 100%;
     height: 90%;
     padding: 30px;
 }
 
+.customDatePicker {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.rbc-active {
+    background-color: #63b9ff !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.rbc-btn-group {
+    button {
+        cursor: pointer;
+    }
+
+}
 
 .rbc-day-slot.rbc-time-column {
 
     .rbc-time-slot {
         &:hover {
-            background-color: #f0f0f0 !important;
+            //background-color: #f0f0f0 !important;
         }
 
         cursor: pointer;
-        z-index: 1000000000000000000000;
+
         border-bottom: 1px solid #e0e0e0;
     }
 
+    .rbc-events-container {
+        cursor: pointer;
+
+    }
+
 }
+
 
 .ui.page.modals.dimmer.transition.visible {
 

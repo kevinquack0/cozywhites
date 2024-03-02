@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from "react";
 
 // patient data
-const patients: Patient[] = [
+let patients: Patient[] = [
   {
     name: "John Doe",
     gender: "male",
@@ -45,6 +45,8 @@ type PatientsContext = {
   setSelectedPatient: (patient: Patient | null) => void;
   editPatient: boolean;
   setEditPatient: (edit: boolean) => void;
+  createPatient: (patient: Patient) => void;
+
 };
 
 type Props = {
@@ -55,15 +57,19 @@ type Props = {
 export const PatientsContext = createContext<PatientsContext>({
   patients: patients,
   selectedPatient: null,
-  setSelectedPatient: () => {},
+  setSelectedPatient: () => { },
   editPatient: false,
-  setEditPatient: () => {},
+  setEditPatient: () => { },
+  createPatient: () => { },
 });
 
 // context provider
 export const PatientsProvider = ({ children }: Props) => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [editPatient, setEditPatient] = useState(false);
+  const createPatient = (patient: Patient) => {
+    patients = [...patients, patient];
+  };
 
   return (
     <PatientsContext.Provider
@@ -73,6 +79,7 @@ export const PatientsProvider = ({ children }: Props) => {
         setSelectedPatient,
         editPatient,
         setEditPatient,
+        createPatient
       }}
     >
       {children}
