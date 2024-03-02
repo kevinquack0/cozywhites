@@ -4,6 +4,8 @@ import { Icon, Search, Tab, TabPane } from "semantic-ui-react";
 import { PatientsContext } from "../contexts/patientsContext";
 import classNames from 'classnames';
 import { AppointmentsContext } from "../contexts/appointmentsContext";
+import hyg from './hyg.png';
+import dent from './dent.png';
 export default function Sidebar({ reset, onCardClick }: any) {
     const [searchTerm, setSearchTerm] = useState('');
     const [activeIndex, setactiveIndex] = useState(0)
@@ -24,8 +26,8 @@ export default function Sidebar({ reset, onCardClick }: any) {
 
 
     const staff = [
-        { name: "Dr.Smith", type: "Dentist", avatar: "/assets/dent.png" },
-        { name: "John grey", type: "Hygienist", avatar: "/assets/hyg.png" },
+        { name: "Dr.Smith", type: "Dentist", avatar: dent },
+        { name: "John grey", type: "Hygienist", avatar: hyg },
     ];
 
     // const patients = [
@@ -69,7 +71,8 @@ export default function Sidebar({ reset, onCardClick }: any) {
 
                                 >
                                     <div className='header'>
-                                        <h1> {staff.name} </h1>
+                                        <h1> {staff.name}
+                                        </h1>
                                     </div>
                                     <div className="body">
                                         <img src={staff.avatar} alt="staff" width={80} />
