@@ -18,10 +18,10 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-[32rem] h-screen lg:flex flex-col py-4 px-4 hidden overflow-y-auto border-r-2">
+    <div className="w-[32rem] h-screen flex flex-col py-4 px-4 overflow-y-auto border-r-2">
       <div
         id="sidebar-title"
-        className="text-3xl font-extrabold text-gray-600 flex items-center justify-center gap-3 my-3"
+        className="text-3xl font-extrabold text-gray-600 flex items-center justify-center gap-3 mt-3 mb-5"
       >
         <FontAwesomeIcon icon={faTooth} />
         Cozy White
