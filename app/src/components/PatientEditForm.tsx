@@ -8,8 +8,13 @@ import DatePicker from "react-datepicker";
 import { Button, Dropdown, FormField, TextArea } from "semantic-ui-react";
 
 const PatientEditForm = () => {
-  const { setEditPatient, editPatient, selectedPatient, setSelectedPatient } =
-    useContext(PatientsContext);
+  const {
+    setEditPatient,
+    editPatient,
+    selectedPatient,
+    setSelectedPatient,
+    updatePatient,
+  } = useContext(PatientsContext);
   const formik = useFormik({
     initialValues: {
       firstName: selectedPatient ? selectedPatient.name.split(" ")[0] : "",
@@ -20,6 +25,7 @@ const PatientEditForm = () => {
       gender: selectedPatient ? selectedPatient.gender : "",
       dob: selectedPatient ? selectedPatient.dob : new Date(),
       notes: selectedPatient ? selectedPatient.notes : "",
+      email: selectedPatient ? selectedPatient.email : "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
@@ -30,9 +36,27 @@ const PatientEditForm = () => {
       gender: Yup.string().required("Required"),
       dob: Yup.date().required("Required"),
       notes: Yup.string().required("Required"),
+      email: Yup.string()
+        .email("Please provide a valid email")
+        .required("Required"),
     }),
     enableReinitialize: true,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      const updatedPatient = {
+        id: selectedPatient?.id || crypto.randomUUID(),
+        name: `${values.firstName} ${values.lastName}`,
+        phoneNumber: values.phoneNumber,
+        address: values.address,
+        insurance: values.insurance,
+        gender: values.gender,
+        dob: values.dob,
+        notes: values.notes,
+        email: values.email,
+        createdAt: selectedPatient?.createdAt || new Date(),
+      };
+      updatePatient(updatedPatient);
+      setSelectedPatient(null);
+    },
   });
 
   const genderOptions = [
@@ -57,10 +81,12 @@ const PatientEditForm = () => {
     handleBlur,
   } = formik;
   return (
-    <form className={"ui form"}>
+    <form className={"ui form"} onSubmit={handleSubmit}>
       <div className={"two-items-row"}>
         <div id={"first-name"}>
-          <label className={"input-label"}>First Name</label>
+          <label className={"input-label"}>
+            First Name<span className={"text-red-700"}>*</span>
+          </label>
           <div className="ui input">
             <input
               name={"firstName"}
@@ -74,7 +100,9 @@ const PatientEditForm = () => {
           {errors.firstName && <p className={"error"}>{errors.firstName}</p>}
         </div>
         <div id={"last-name"}>
-          <label className={"input-label"}>Last Name</label>
+          <label className={"input-label"}>
+            Last Name<span className={"text-red-700"}>*</span>
+          </label>
           <div className="ui input">
             <input
               name={"lastName"}
@@ -90,7 +118,9 @@ const PatientEditForm = () => {
       </div>
       <div className={"two-items-row"}>
         <div id={"dob"} className={"date-picker"}>
-          <label className={"input-label"}>Date of Birth</label>
+          <label className={"input-label"}>
+            Date of Birth<span className={"text-red-700"}>*</span>
+          </label>
           <DatePicker
             selected={values.dob}
             onChange={(value) => {
@@ -99,7 +129,9 @@ const PatientEditForm = () => {
           />
         </div>
         <div id={"gender"} className={"date-picker"}>
-          <label className={"input-label"}>Date of Birth</label>
+          <label className={"input-label"}>
+            Gender<span className={"text-red-700"}>*</span>
+          </label>
           <Dropdown
             placeholder="State"
             value={values.gender}
@@ -114,7 +146,9 @@ const PatientEditForm = () => {
       </div>
       <div className={"form-row field"}>
         <div id={"phone-number"}>
-          <label className={"input-label"}>Phone Number</label>
+          <label className={"input-label"}>
+            Phone Number<span className={"text-red-700"}>*</span>
+          </label>
           <div className="ui input">
             <input
               name={"phoneNumber"}
@@ -126,13 +160,18 @@ const PatientEditForm = () => {
             />
           </div>
           {errors.phoneNumber && (
-            <p className={"error"}>{errors.phoneNumber}</p>
+            <p className={"error"}>
+              {errors.phoneNumber}
+              <span className={"text-red-700"}>*</span>
+            </p>
           )}
         </div>
       </div>
       <div className={"form-row field"}>
         <div id={"address"}>
-          <label className={"input-label"}>Address</label>
+          <label className={"input-label"}>
+            Address<span className={"text-red-700"}>*</span>
+          </label>
           <div className="ui input">
             <input
               name={"address"}
@@ -147,8 +186,29 @@ const PatientEditForm = () => {
           {errors.address && <p className={"error"}>{errors.address}</p>}
         </div>
       </div>
+      <div className={"form-row field"}>
+        <div id={"email"}>
+          <label className={"input-label"}>
+            Email<span className={"text-red-700"}>*</span>
+          </label>
+          <div className="ui input">
+            <input
+              name={"email"}
+              type="email"
+              placeholder=""
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              className={"full-width"}
+            />
+          </div>
+          {errors.email && <p className={"error"}>{errors.email}</p>}
+        </div>
+      </div>
       <div className={"form-row"}>
-        <label className={"input-label"}>Notes</label>
+        <label className={"input-label"}>
+          Notes<span className={"text-red-700"}>*</span>
+        </label>
         <textarea
           placeholder="Tell us more"
           rows={3}
