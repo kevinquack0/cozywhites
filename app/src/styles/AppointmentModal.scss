@@ -16,6 +16,11 @@
     }
 }
 
+.required::after {
+    content: "*";
+    color: red;
+}
+
 .textAreainputPair {
     display: flex;
     flex-direction: column;
@@ -39,4 +44,5 @@
 .areaText {
     width: 500px;
     height: 100px;
+    border: 1px solid #e1e1e1;
 }

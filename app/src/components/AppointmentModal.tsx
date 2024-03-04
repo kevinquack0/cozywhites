@@ -114,7 +114,7 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
         >
             {slotInfo && <ModalHeader>Appointment: {slotInfo.start.toLocaleDateString(undefined, format)}, {slotInfo.start.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}-{slotInfo.end.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} </ModalHeader>}
             <ModalContent className='modalContent' >
-                <div className='inputPair'>
+                <div className='inputPair required'>
 
                     <p> Type:</p>
                     <Dropdown
@@ -126,7 +126,7 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                         onChange={(e, data) => setAppointmentType(data.value as string)}
                     />
                 </div>
-                <div className='inputPair'>
+                <div className='inputPair required'>
 
                     <p> Staff:</p>
                     <Dropdown
@@ -144,7 +144,7 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                 <Checkbox label='Existing Client' onClick={() => { setExistingClient(!existingClient) }} />
                 {existingClient &&
 
-                    <div className='inputPair'>
+                    <div className='inputPair required'>
 
                         <p style={{ fontSize: '16px', whiteSpace: 'nowrap' }}> Existing Client:</p>
                         <Dropdown
@@ -163,15 +163,22 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                     </div>
                 }
                 {!existingClient &&
-                    <div className='inputPair'>
-                        <p> Email:</p>
-                        <Input value={email} placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+                    <div className='inputPair required'>
+                        <p> Name:</p>
+                        <Input value={client} placeholder='Firstname Lastname' onChange={(e) => setClient(e.target.value)} />
+                        {/* <Input value={client} placeholder='Lastname' onChange={(e) => setClient(e.target.value)} /> */}
+                    </div>
+                }
+                {!existingClient &&
+                    <div className='inputPair required'>
+                        <p> Phone:</p>
+                        <Input value={phoneNumber} placeholder='xxx-xxx-xxxx' onChange={(e) => setPhoneNumber(e.target.value)} />
                     </div>
                 }
                 {!existingClient &&
                     <div className='inputPair'>
-                        <p> Name:</p>
-                        <Input value={client} placeholder='Name' onChange={(e) => setClient(e.target.value)} />
+                        <p> Email:</p>
+                        <Input value={email} placeholder='some@example.com' onChange={(e) => setEmail(e.target.value)} />
                     </div>
                 }
                 {selectedEvent &&
@@ -189,16 +196,9 @@ export default function AppointmentModal({ open, setOpen, slotInfo, onSubmit, ha
                         />
                     </div>
                 }
-                {!existingClient &&
-                    <div className='inputPair'>
-                        <p> Phone:</p>
-                        <Input value={phoneNumber} placeholder='Phone' onChange={(e) => setPhoneNumber(e.target.value)} />
-                    </div>
-                }
                 <div className='textAreainputPair'>
-
                     <p> Notes:</p>
-                    <TextArea value={notes} placeholder='Appointment notes' className='areaText' onChange={(e) => { setNotes(e.target.value) }} />
+                    <TextArea value={notes} placeholder='type additional notes here' className='areaText' onChange={(e) => { setNotes(e.target.value) }} />
                 </div>
             </ModalContent>
             <ModalActions>

@@ -2,6 +2,14 @@ $primary: #0072CE;
 $grey: #D3D3D3;
 
 
+.appointmentsCardHeader {
+    height: 60px;
+
+    h1 {
+        text-align: center;
+    }
+}
+
 .appointmentsCardWrapper {
     width: 1000px;
     height: 700px;

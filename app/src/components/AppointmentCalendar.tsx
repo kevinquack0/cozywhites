@@ -130,7 +130,7 @@ export default function AppointmentCalendar() {
           onSelectEvent={handleSelectEvent}
           min={minTime}
           max={maxTime}
-          style={{ height: 500 }}
+          style={{ height: 600 }}
         />
       </div>
     </div>
