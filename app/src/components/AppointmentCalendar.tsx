@@ -1,22 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, SlotInfo } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../styles/AppointmentCalendar.scss";
 import AppointmentModal from "./AppointmentModal";
 import { PatientsContext } from "../contexts/patientsContext";
 import { AppointmentsContext } from "../contexts/appointmentsContext";
+import ExistingAppointmentModal from "./existingAppointmentModal";
 const localizer = momentLocalizer(moment);
 
 export default function AppointmentCalendar() {
   const [open, setOpen] = useState(false);
-  const [slotInfo, setSlotInfo] = useState();
+
+  const [slotInfo, setSlotInfo] = useState<SlotInfo>();
   const [events, setEvents]: any = useState([]);
   const [selectedEvent, setSelectedEvent]: any = useState(null);
   const { patients, createPatient, selectedPatient, setSelectedPatient } =
     useContext(PatientsContext);
-  const { appointments, addAppointment, editAppointment, deleteAppointment } =
-    useContext(AppointmentsContext);
+  const {
+    appointments,
+    addAppointment,
+    editAppointment,
+    deleteAppointment,
+    selectedAppointment,
+    setSelectedAppointment,
+    openExistingAppointmentModal,
+    setOpenExistingAppointmentModal,
+  } = useContext(AppointmentsContext);
 
   // const events = [
   //     {
@@ -78,13 +88,14 @@ export default function AppointmentCalendar() {
     });
   };
 
-  const handleSelectSlot = (slotInfo: any) => {
+  const handleSelectSlot = (slotInfo: SlotInfo) => {
     setSlotInfo(slotInfo);
     setOpen(true);
   };
   const handleSelectEvent = (event: any) => {
     console.log("event", event);
-    setSelectedEvent(event);
+    setOpenExistingAppointmentModal(true);
+    setSelectedAppointment(appointments.filter((a) => a.id === event.id)[0]);
     // Here you can handle the event click, for example open a modal with the event data
   };
 
@@ -100,27 +111,31 @@ export default function AppointmentCalendar() {
       setSelectedEvent(null); // Clear the selected event
     }
   };
-  useEffect(() => {
-    console.log("events", events);
-  }, [events]);
+
+  // set the properties of each calendar timeslot
+  // based on some conditions
+  const slotPropGetter = (date: Date) => {
+    const noon = new Date();
+    noon.setHours(12,0,0,0);
+    
+    const isNoon = date.getHours() === noon.getHours();
+    const isWeekend = date.getDay() % 6 === 0;
+    const isDisabled = isNoon || isWeekend;
+    if (isDisabled) {
+      return {
+        className: "disabled-slot"
+      }
+    }
+    return {className: ""}
+  }
 
   return (
     <div className={"w-full"}>
-      <AppointmentModal
-        handleCancelEvent={handleCancelEvent}
-        setSelectedEvent={setSelectedEvent}
-        patients={patients}
-        onSubmit={handleAddEvent}
-        open={open}
-        setOpen={setOpen}
-        slotInfo={slotInfo}
-        selectedEvent={selectedEvent}
-      />
-
+      <AppointmentModal open={open} setOpen={setOpen} slotInfo={slotInfo} />
       <div className="calendarWrapper">
         <Calendar
           localizer={localizer}
-          events={events}
+          events={appointments}
           startAccessor="start"
           endAccessor="end"
           step={60}
@@ -130,7 +145,9 @@ export default function AppointmentCalendar() {
           onSelectEvent={handleSelectEvent}
           min={minTime}
           max={maxTime}
-          style={{ height: 500 }}
+          style={{ height: 600 }}
+          slotPropGetter={slotPropGetter}
+          timeslots={1}
         />
       </div>
     </div>

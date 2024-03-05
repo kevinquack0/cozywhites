@@ -11,6 +11,9 @@ import TopNav from "./components/topNav";
 import { StaffContext } from "./contexts/staffContext";
 import { AppointmentsContext } from "./contexts/appointmentsContext";
 import CalendarContainer from "./components/calendarContainer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ExistingAppointmentModal from "./components/existingAppointmentModal";
 
 function App() {
   const { selectedStaff, setSelectedStaff } = useContext(StaffContext);
@@ -26,6 +29,8 @@ function App() {
         </div>
       </div>
       <PatientInfoModal />
+      <ExistingAppointmentModal />
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }

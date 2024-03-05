@@ -16,8 +16,8 @@ const initialPatients: Patient[] = [
   },
   {
     id: 2,
-    name: "Alice Green",
-    gender: "female",
+    name: "James Brown",
+    gender: "male",
     phoneNumber: "6666666666",
     address: "2500 University Drive NW, Calgary, Alberta",
     email: "123@ucalgary.ca",
@@ -32,14 +32,14 @@ const initialPatients: Patient[] = [
 export type Patient = {
   id: number | string;
   name: string;
-  gender: string;
+  gender?: string;
   phoneNumber: string;
-  address: string;
+  address?: string;
   email: string;
-  dob: Date;
-  insurance: string;
+  dob?: Date;
+  insurance?: string;
   createdAt: Date;
-  notes: string;
+  notes?: string;
 };
 
 type PatientsContext = {

@@ -47,6 +47,16 @@ $grey: #D3D3D3;
 
 }
 
+.rbc-time-gutter.rbc-time-column {
+
+    .rbc-time-slot {
+        background-color: white;
+    }
+}
+
+.disabled-slot {
+    background-color: $grey;
+}
 
 .ui.page.modals.dimmer.transition.visible {
 

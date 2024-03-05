@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { Button, Dropdown, FormField, TextArea } from "semantic-ui-react";
+import {toast} from "react-toastify";
 
 const PatientEditForm = () => {
   const {
@@ -31,11 +32,6 @@ const PatientEditForm = () => {
       firstName: Yup.string().required("Required"),
       lastName: Yup.string().required("Required"),
       phoneNumber: Yup.string().required("Required"),
-      address: Yup.string().required("Required"),
-      insurance: Yup.string().required("Required"),
-      gender: Yup.string().required("Required"),
-      dob: Yup.date().required("Required"),
-      notes: Yup.string().required("Required"),
       email: Yup.string()
         .email("Please provide a valid email")
         .required("Required"),
@@ -56,6 +52,7 @@ const PatientEditForm = () => {
       };
       updatePatient(updatedPatient);
       setSelectedPatient(null);
+      toast.success("Patient updated successfully");
     },
   });
 
@@ -119,7 +116,7 @@ const PatientEditForm = () => {
       <div className={"two-items-row"}>
         <div id={"dob"} className={"date-picker"}>
           <label className={"input-label"}>
-            Date of Birth<span className={"text-red-700"}>*</span>
+            Date of Birth
           </label>
           <DatePicker
             selected={values.dob}
@@ -170,7 +167,7 @@ const PatientEditForm = () => {
       <div className={"form-row field"}>
         <div id={"address"}>
           <label className={"input-label"}>
-            Address<span className={"text-red-700"}>*</span>
+            Address
           </label>
           <div className="ui input">
             <input
@@ -207,10 +204,11 @@ const PatientEditForm = () => {
       </div>
       <div className={"form-row"}>
         <label className={"input-label"}>
-          Notes<span className={"text-red-700"}>*</span>
+          Notes
         </label>
         <textarea
-          placeholder="Tell us more"
+          placeholder="Enter notes here..."
+          name={"notes"}
           rows={3}
           onChange={handleChange}
           onBlur={handleBlur}
