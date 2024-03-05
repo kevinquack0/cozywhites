@@ -4,7 +4,11 @@ import SearchBar from "./searchBar";
 import { AppointmentsContext } from "../../contexts/appointmentsContext";
 
 const AppointmentsTab = () => {
-  const { appointments } = useContext(AppointmentsContext);
+  const {
+    appointments,
+    setSelectedAppointment,
+    setOpenExistingAppointmentModal,
+  } = useContext(AppointmentsContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   let filteredAppointments = appointments;
@@ -29,10 +33,13 @@ const AppointmentsTab = () => {
               <div
                 key={index}
                 className="w-full flex flex-col justify-center items-center py-7 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
-                onClick={() => {}}
+                onClick={() => {
+                  setSelectedAppointment(appointment);
+                  setOpenExistingAppointmentModal(true);
+                }}
               >
                 <div className="header">
-                  <h1>
+                  <p className={"text-2xl font-semibold"}>
                     {appointment.start.toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "numeric",
@@ -44,7 +51,7 @@ const AppointmentsTab = () => {
                       minute: "numeric",
                       hour12: true,
                     })}{" "}
-                  </h1>
+                  </p>
                 </div>
                 <div className="mt-2">
                   <p>
