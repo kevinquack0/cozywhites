@@ -149,6 +149,7 @@ export default function AppointmentCalendar() {
           max={maxTime}
           style={{ height: 600 }}
           slotPropGetter={slotPropGetter}
+          timeslots={1}
         />
       </div>
     </div>
