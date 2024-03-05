@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cozywhites/static/css/main.1713209e.css",
-    "main.js": "/cozywhites/static/js/main.c113fdfa.js",
+    "main.css": "/cozywhites/static/css/main.49f007fa.css",
+    "main.js": "/cozywhites/static/js/main.1c32eb65.js",
     "static/js/453.5565870f.chunk.js": "/cozywhites/static/js/453.5565870f.chunk.js",
     "static/media/hyg.png": "/cozywhites/static/media/hyg.febaaf3e66465e181cd3.png",
     "static/media/dent.png": "/cozywhites/static/media/dent.a8eced19044987f1b6ab.png",
@@ -22,12 +22,12 @@
     "static/media/outline-icons.woff": "/cozywhites/static/media/outline-icons.ddae9b1ba9b0b42f5880.woff",
     "static/media/outline-icons.woff2": "/cozywhites/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "index.html": "/cozywhites/index.html",
-    "main.1713209e.css.map": "/cozywhites/static/css/main.1713209e.css.map",
-    "main.c113fdfa.js.map": "/cozywhites/static/js/main.c113fdfa.js.map",
+    "main.49f007fa.css.map": "/cozywhites/static/css/main.49f007fa.css.map",
+    "main.1c32eb65.js.map": "/cozywhites/static/js/main.1c32eb65.js.map",
     "453.5565870f.chunk.js.map": "/cozywhites/static/js/453.5565870f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1713209e.css",
-    "static/js/main.c113fdfa.js"
+    "static/css/main.49f007fa.css",
+    "static/js/main.1c32eb65.js"
   ]
 }
