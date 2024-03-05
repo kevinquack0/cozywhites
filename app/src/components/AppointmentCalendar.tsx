@@ -104,6 +104,23 @@ export default function AppointmentCalendar() {
     console.log("events", events);
   }, [events]);
 
+  // set the properties of each calendar timeslot
+  // based on some conditions
+  const slotPropGetter = (date: Date) => {
+    const noon = new Date();
+    noon.setHours(12,0,0,0);
+    
+    const isNoon = date.getHours() === noon.getHours();
+    const isWeekend = date.getDay() % 6 === 0;
+    const isDisabled = isNoon || isWeekend;
+    if (isDisabled) {
+      return {
+        className: "disabled-slot"
+      }
+    }
+    return {className: ""}
+  }
+
   return (
     <div className={"w-full"}>
       <AppointmentModal
@@ -131,6 +148,7 @@ export default function AppointmentCalendar() {
           min={minTime}
           max={maxTime}
           style={{ height: 600 }}
+          slotPropGetter={slotPropGetter}
         />
       </div>
     </div>
