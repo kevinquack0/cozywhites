@@ -60,10 +60,11 @@ const ExistingAppointmentModal = () => {
   useEffect(() => {
     if (selectedAppointment) {
       setClient(
-        patients.filter((p) => p.id === selectedAppointment.clientId)[0]
+        patients.filter((p) => p.id == selectedAppointment.clientId)[0]
       );
     }
   }, [selectedAppointment]);
+
   const handleClose = () => {
     setOpenExistingAppointmentModal(false);
   };

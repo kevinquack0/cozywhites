@@ -40,8 +40,8 @@ const AppointmentsTab = () => {
                   setOpenExistingAppointmentModal(true);
                 }}
               >
-                <div className="header">
-                  <p className={"text-2xl font-semibold"}>
+                <div className="header text-center">
+                  <p className={"text-xl font-semibold"}>
                     {appointment.start.toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "numeric",

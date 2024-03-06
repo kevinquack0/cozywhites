@@ -7,6 +7,9 @@ import AppointmentModal from "./AppointmentModal";
 import { PatientsContext } from "../contexts/patientsContext";
 import { AppointmentsContext } from "../contexts/appointmentsContext";
 import ExistingAppointmentModal from "./existingAppointmentModal";
+import {StaffContext} from "../contexts/staffContext";
+import {Simulate} from "react-dom/test-utils";
+import select = Simulate.select;
 const localizer = momentLocalizer(moment);
 
 export default function AppointmentCalendar() {
@@ -27,6 +30,11 @@ export default function AppointmentCalendar() {
     openExistingAppointmentModal,
     setOpenExistingAppointmentModal,
   } = useContext(AppointmentsContext);
+  const {selectedStaff} = useContext(StaffContext)
+
+  const filteredByStaff = appointments.filter(
+    (a) => a.staffId == selectedStaff?.id
+  );
 
   // const events = [
   //     {
@@ -135,7 +143,7 @@ export default function AppointmentCalendar() {
       <div className="calendarWrapper">
         <Calendar
           localizer={localizer}
-          events={appointments}
+          events={filteredByStaff}
           startAccessor="start"
           endAccessor="end"
           step={60}

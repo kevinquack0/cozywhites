@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../styles/AppointmentsCard.scss";
 import { Button } from "semantic-ui-react";
 import { boolean } from "yup";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCalendarCheck} from "@fortawesome/free-solid-svg-icons";
 
 const appointmentsData = [
   {
@@ -70,7 +72,9 @@ export default function AppointmentsCard() {
   return (
     <div>
       <div className="appointmentsCardHeader">
-        <h1>Appointments for Today</h1>
+        <h1 className={"text-primary"}>
+          <FontAwesomeIcon icon={faCalendarCheck} className={"me-3"}/>Appointments for Today
+        </h1>
       </div>
       <div className="appointmentsCardWrapper">
         <div className="cardHeader">
@@ -82,7 +86,7 @@ export default function AppointmentsCard() {
         <div className="cardBody">
           {appointments.map((appointment, index) => {
             return (
-              <div className="appointmentCard">
+              <div className="appointmentCard" key={index}>
                 <p>{appointment.patientName}</p>
                 <p>{appointment.doctorName}</p>
                 <p>{appointment.time}</p>
