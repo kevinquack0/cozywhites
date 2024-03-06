@@ -170,16 +170,12 @@ export default function AppointmentModal({
     0
   );
 
-  // function formatPatientData(patient: Patient, maxLength: number) {
-  //   const padding = " ".repeat(maxLength - patient.name.length);
-  //   console.log(`${patient.name}${padding} (${patient.phoneNumber})`);
-  //   return `${patient.name}${padding} (${patient.phoneNumber})`;
-  // }
-  function formatPatientDataWeb(patient: Patient, maxLength: number) {
-    const neededSpaces = maxLength - patient.name.length;
-    const padding = Array(neededSpaces + 1).join("\u00A0"); // Unicode for non-breaking space
+  function formatPatientData(patient: Patient, maxLength: number) {
+    const padding = " ".repeat(maxLength - patient.name.length);
+    console.log(`${patient.name}${padding} (${patient.phoneNumber})`);
     return `${patient.name}${padding} (${patient.phoneNumber})`;
   }
+
 
   return (
     <Modal
@@ -267,12 +263,12 @@ export default function AppointmentModal({
                     return {
                       key: patient.id,
                       text:
-                        // <span
-                        //   style={{ fontFamily: "monospace", whiteSpace: "pre" }}
-                        // >
-                        //   {formatPatientData(patient, maxLength)}
-                        // </span>
-                        formatPatientDataWeb(patient, maxLength),
+                          ( <span
+                          style={{ fontFamily: "monospace", whiteSpace: "pre" }}
+                        >
+                          {formatPatientData(patient, maxLength)}
+                        </span>),
+                        // formatPatientDataWeb(patient, maxLength),
                       value: patient.id,
                     };
                   })}

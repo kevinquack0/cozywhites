@@ -6,10 +6,7 @@ import "../styles/AppointmentCalendar.scss";
 import AppointmentModal from "./AppointmentModal";
 import { PatientsContext } from "../contexts/patientsContext";
 import { AppointmentsContext } from "../contexts/appointmentsContext";
-import ExistingAppointmentModal from "./existingAppointmentModal";
 import {StaffContext} from "../contexts/staffContext";
-import {Simulate} from "react-dom/test-utils";
-import select = Simulate.select;
 const localizer = momentLocalizer(moment);
 
 export default function AppointmentCalendar() {
