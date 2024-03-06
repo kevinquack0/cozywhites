@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import AppointmentCalendar from "./AppointmentCalendar";
 import { StaffContext } from "../contexts/staffContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { PatientsContext } from "../contexts/patientsContext";
 
 const CalendarContainer = () => {

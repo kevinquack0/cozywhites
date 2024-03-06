@@ -31,12 +31,12 @@ const PatientsTab = () => {
                 }}
               >
                 <h1> {patient.name} </h1>
-
-                <p>
-                  <strong>Email:</strong> {patient.email}
-                </p>
                 <p>
                   <strong>Phone Number:</strong> {patient.phoneNumber}
+                </p>
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {patient.email ? patient.email : "No data"}
                 </p>
               </div>
             );

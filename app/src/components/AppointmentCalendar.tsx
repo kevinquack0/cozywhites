@@ -36,57 +36,57 @@ export default function AppointmentCalendar() {
   //     },
   // ];
 
-  const handleAddEvent = (appointmentData: any) => {
-    const {
-      start,
-      end,
-      title,
-      type,
-      client,
-      staff,
-      notes,
-      email,
-      phoneNumber,
-      id,
-    } = appointmentData;
-    const filteredEvents = events.filter((event: any) => event.id !== id);
-    createPatient({
-      id: crypto.randomUUID(),
-      name: client,
-      gender: "",
-      phoneNumber: phoneNumber,
-      address: "123 Main St",
-      email: email,
-      dob: new Date("1990-01-01"),
-      insurance: "",
-      createdAt: new Date(),
-      notes: "",
-    });
-    setEvents([
-      ...filteredEvents,
-      {
-        start,
-        end,
-        title,
-        type,
-        client,
-        staff,
-        notes,
-        email,
-        phoneNumber,
-        id,
-      },
-    ]);
-    addAppointment({
-      id,
-      start,
-      end,
-      title,
-      type,
-      client,
-      staff,
-    });
-  };
+  // const handleAddEvent = (appointmentData: any) => {
+  //   const {
+  //     start,
+  //     end,
+  //     title,
+  //     type,
+  //     client,
+  //     staff,
+  //     notes,
+  //     email,
+  //     phoneNumber,
+  //     id,
+  //   } = appointmentData;
+  //   const filteredEvents = events.filter((event: any) => event.id !== id);
+  //   createPatient({
+  //     id: crypto.randomUUID(),
+  //     name: client,
+  //     gender: "",
+  //     phoneNumber: phoneNumber,
+  //     address: "123 Main St",
+  //     email: email,
+  //     dob: new Date("1990-01-01"),
+  //     insurance: "",
+  //     createdAt: new Date(),
+  //     notes: "",
+  //   });
+  //   setEvents([
+  //     ...filteredEvents,
+  //     {
+  //       start,
+  //       end,
+  //       title,
+  //       type,
+  //       client,
+  //       staff,
+  //       notes,
+  //       email,
+  //       phoneNumber,
+  //       id,
+  //     },
+  //   ]);
+  //   addAppointment({
+  //     id,
+  //     start,
+  //     end,
+  //     title,
+  //     type,
+  //     client,
+  //     staff,
+  //   });
+  // };
 
   const handleSelectSlot = (slotInfo: SlotInfo) => {
     setSlotInfo(slotInfo);

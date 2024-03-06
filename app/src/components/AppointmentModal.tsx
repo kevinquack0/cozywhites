@@ -16,6 +16,8 @@ import {
   AppointmentsContext,
 } from "../contexts/appointmentsContext";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 
 const options = [
   {
@@ -29,9 +31,9 @@ const options = [
     value: "Checkup",
   },
   {
-    key: "Cavity",
-    text: "Cavity",
-    value: "Cavity",
+    key: "Filling",
+    text: "Filling",
+    value: "Filling",
   },
 ];
 
@@ -101,11 +103,6 @@ export default function AppointmentModal({
         then: (schema) => schema.required("Phone number is required"),
         otherwise: (schema) => schema.notRequired(),
       }),
-      email: Yup.string().when("existing", {
-        is: false,
-        then: (schema) => schema.required("Email is required"),
-        otherwise: (schema) => schema.notRequired(),
-      }),
     }),
     onSubmit: (values, formikHelpers) => {
       if (values.existing) {
@@ -123,6 +120,7 @@ export default function AppointmentModal({
           staff: selectedStaff?.name || "",
           clientId: values.patientId,
           staffId: selectedStaff?.id,
+          checkIn: false,
         };
         addAppointment(appointment);
       } else {
@@ -144,6 +142,7 @@ export default function AppointmentModal({
           staff: selectedStaff?.name || "",
           clientId: patient.id,
           staffId: selectedStaff?.id,
+          checkIn: false,
         };
         addAppointment(appointment);
         formikHelpers.resetForm();
@@ -166,6 +165,22 @@ export default function AppointmentModal({
     setOpen(false);
   };
 
+  const maxLength = patients.reduce(
+    (max, { name }) => Math.max(max, name.length),
+    0
+  );
+
+  // function formatPatientData(patient: Patient, maxLength: number) {
+  //   const padding = " ".repeat(maxLength - patient.name.length);
+  //   console.log(`${patient.name}${padding} (${patient.phoneNumber})`);
+  //   return `${patient.name}${padding} (${patient.phoneNumber})`;
+  // }
+  function formatPatientDataWeb(patient: Patient, maxLength: number) {
+    const neededSpaces = maxLength - patient.name.length;
+    const padding = Array(neededSpaces + 1).join("\u00A0"); // Unicode for non-breaking space
+    return `${patient.name}${padding} (${patient.phoneNumber})`;
+  }
+
   return (
     <Modal
       onClose={handleClose}
@@ -175,7 +190,11 @@ export default function AppointmentModal({
     >
       {slotInfo && (
         <ModalHeader>
-          Appointment: {slotInfo.start.toLocaleDateString(undefined, format)},{" "}
+          <FontAwesomeIcon icon={faCalendarCheck} className={"me-2"} />
+          Appointment: {slotInfo.start.toLocaleDateString(
+            undefined,
+            format
+          )},{" "}
           {slotInfo.start.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
@@ -244,11 +263,19 @@ export default function AppointmentModal({
                   }}
                   value={values.patientId}
                   selection
-                  options={patients.map((patient: Patient) => ({
-                    key: patient.id,
-                    text: patient.name,
-                    value: patient.id,
-                  }))}
+                  options={patients.map((patient: Patient) => {
+                    return {
+                      key: patient.id,
+                      text:
+                        // <span
+                        //   style={{ fontFamily: "monospace", whiteSpace: "pre" }}
+                        // >
+                        //   {formatPatientData(patient, maxLength)}
+                        // </span>
+                        formatPatientDataWeb(patient, maxLength),
+                      value: patient.id,
+                    };
+                  })}
                 />
               </div>
               {errors.patientId && (
@@ -322,28 +349,6 @@ export default function AppointmentModal({
               {errors.lastName && (
                 <p className={"text-red-700"}>{errors.lastName}*</p>
               )}
-
-              <div className={"mt-4"}>
-                <div id={"email"} className={"flex items-center"}>
-                  <label className={"input-label text-xl font-semibold"}>
-                    Email<span className={"text-red-700"}>*</span>
-                  </label>
-                  <div className="ui input w-full">
-                    <input
-                      name={"email"}
-                      type="email"
-                      placeholder="Enter email"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                      className={"full-width"}
-                    />
-                  </div>
-                </div>
-              </div>
-              {errors.email && (
-                <p className={"text-red-700"}>{errors.email}*</p>
-              )}
               <div className={"mt-4"}>
                 <div
                   id={"phone-number"}
@@ -367,6 +372,28 @@ export default function AppointmentModal({
               {errors.phoneNumber && (
                 <p className={"text-red-700"}>{errors.phoneNumber}*</p>
               )}
+              <div className={"mt-4"}>
+                <div id={"email"} className={"flex items-center"}>
+                  <label className={"input-label text-xl font-semibold"}>
+                    Email
+                  </label>
+                  <div className="ui input w-full">
+                    <input
+                      name={"email"}
+                      type="email"
+                      placeholder="Enter email"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                      className={"full-width"}
+                    />
+                  </div>
+                </div>
+              </div>
+              {errors.email && (
+                <p className={"text-red-700"}>{errors.email}*</p>
+              )}
+
               <div className="mt-4">
                 <label className={"text-xl font-semibold"}>Notes:</label>
                 <textarea

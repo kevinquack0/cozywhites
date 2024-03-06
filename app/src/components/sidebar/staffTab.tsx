@@ -20,21 +20,23 @@ const StaffTab = () => {
       </p>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {filteredStaff.length > 0 ? (
-        <div className={"flex flex-col items-center gap-10 w-9/12 mt-5"}>
+        <div className={"flex flex-col items-center gap-10 w-8/12 mt-5"}>
           {filteredStaff.map((staff, index) => {
             return (
               <div
                 key={index}
-                className="w-full flex flex-col justify-center items-center py-5 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
+                className="w-full flex flex-col justify-center items-center py-2 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
                 onClick={() => {
                   setSelectedStaff(staff);
                 }}
               >
-                <p className={"text-3xl text-gray-600 font-extrabold"}>
+                <div
+                  className={"text-2xl text-gray-600 font-extrabold pb-0 mb-3"}
+                >
                   {staff.name}
-                </p>
-                <img src={staff.avatar} alt="staff" width={80} />
-                <p className={"text-2xl text-gray-600 mt-2"}>{staff.type}</p>
+                </div>
+                <img src={staff.avatar} alt="staff" width={70} />
+                <p className={"text-xl text-gray-600 mt-2"}>{staff.type}</p>
               </div>
             );
           })}

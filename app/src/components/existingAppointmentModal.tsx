@@ -13,15 +13,17 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 
 const ExistingAppointmentModal = () => {
   const { patients } = useContext(PatientsContext);
+
   const [openDeleteConfirmModal, setOpenDeleteConfirmModal] =
     React.useState(false);
   const {
     setSelectedAppointment,
     selectedAppointment,
-    deleteAppointment,
     editAppointment,
     openExistingAppointmentModal,
     setOpenExistingAppointmentModal,
@@ -74,6 +76,7 @@ const ExistingAppointmentModal = () => {
         open={openExistingAppointmentModal}
       >
         <ModalHeader>
+          <FontAwesomeIcon icon={faCalendarCheck} className={"me-2"} />
           Appointment:{" "}
           {selectedAppointment &&
             selectedAppointment.start.toLocaleDateString("en-US", {
@@ -114,21 +117,18 @@ const ExistingAppointmentModal = () => {
                   }}
                 />
               </div>
-              {/*<h3>*/}
-
-              {/*</h3>*/}
+              <h3>Patient: {client?.name}</h3>
               <h3>Staff: {selectedAppointment?.staff}</h3>
               <h3>Type: {selectedAppointment?.type}</h3>
-              <hr />
-              <h3>Patient: {client?.name}</h3>
               <h3>Phone: {client?.phoneNumber}</h3>
-              <h3>Email: {client?.email}</h3>
+              <h3>Email: {client?.email ? client.email : "No data"}</h3>
             </div>
             <div className={"mt-4 flex justify-end gap-3"}>
               <Button
                 content="Cancel Appointment"
                 labelPosition="right"
                 icon="cancel"
+                type={"button"}
                 onClick={() => {
                   setOpenDeleteConfirmModal(true);
                 }}
@@ -138,7 +138,7 @@ const ExistingAppointmentModal = () => {
                 content="Save"
                 labelPosition="right"
                 icon="save"
-                onClick={() => {}}
+                type={"submit"}
                 positive
               />
             </div>
