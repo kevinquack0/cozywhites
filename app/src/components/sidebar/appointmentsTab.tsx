@@ -41,7 +41,14 @@ const AppointmentsTab = () => {
                 }}
               >
                 <div className="header text-center">
-                  <p className={"text-xl font-semibold"}>
+                  <span className={"text-xl font-semibold"}>
+                    {appointment.start.toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  <p>
                     {appointment.start.toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "numeric",
