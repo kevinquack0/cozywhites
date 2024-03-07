@@ -4,7 +4,12 @@ import SearchBar from "./searchBar";
 import { AppointmentsContext } from "../../contexts/appointmentsContext";
 
 const AppointmentsTab = () => {
-  const { appointments } = useContext(AppointmentsContext);
+  const {
+    appointments,
+    setSelectedAppointment,
+    setOpenExistingAppointmentModal,
+  } = useContext(AppointmentsContext);
+  const { patients } = useContext(PatientsContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   let filteredAppointments = appointments;
@@ -16,6 +21,7 @@ const AppointmentsTab = () => {
       );
     });
   }
+
   return (
     <div className="tabContainer flex flex-col items-center py-5 w-full">
       <p className={"text-gray-600"}>
@@ -28,11 +34,14 @@ const AppointmentsTab = () => {
             return (
               <div
                 key={index}
-                className="w-full flex flex-col justify-center items-center py-7 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
-                onClick={() => {}}
+                className="w-full flex flex-col justify-center items-center py-4 px-5 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
+                onClick={() => {
+                  setSelectedAppointment(appointment);
+                  setOpenExistingAppointmentModal(true);
+                }}
               >
-                <div className="header">
-                  <h1>
+                <div className="header text-center">
+                  <p className={"text-xl font-semibold"}>
                     {appointment.start.toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "numeric",
@@ -44,7 +53,7 @@ const AppointmentsTab = () => {
                       minute: "numeric",
                       hour12: true,
                     })}{" "}
-                  </h1>
+                  </p>
                 </div>
                 <div className="mt-2">
                   <p>

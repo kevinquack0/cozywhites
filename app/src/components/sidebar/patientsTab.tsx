@@ -30,13 +30,13 @@ const PatientsTab = () => {
                   setSelectedPatient(patient);
                 }}
               >
-                <h1> {patient.name} </h1>
-
-                <p>
-                  <strong>Email:</strong> {patient.email}
-                </p>
-                <p>
+                <h1 className={"text-center"}> {patient.name} </h1>
+                <p className={"text-center"}>
                   <strong>Phone Number:</strong> {patient.phoneNumber}
+                </p>
+                <p className={"text-center"}>
+                  <strong>Email:</strong>{" "}
+                  {patient.email ? patient.email : "No data"}
                 </p>
               </div>
             );

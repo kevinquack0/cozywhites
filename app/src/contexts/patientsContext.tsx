@@ -3,7 +3,7 @@ import { createContext, ReactNode, useState } from "react";
 // patient data
 const initialPatients: Patient[] = [
   {
-    id: 1,
+    id: "1",
     name: "Alice Green",
     gender: "female",
     phoneNumber: "6666666666",
@@ -15,9 +15,9 @@ const initialPatients: Patient[] = [
     notes: "This is a new patient",
   },
   {
-    id: 2,
-    name: "Alice Green",
-    gender: "female",
+    id: "2",
+    name: "James Brown",
+    gender: "male",
     phoneNumber: "6666666666",
     address: "2500 University Drive NW, Calgary, Alberta",
     email: "123@ucalgary.ca",
@@ -32,14 +32,14 @@ const initialPatients: Patient[] = [
 export type Patient = {
   id: number | string;
   name: string;
-  gender: string;
+  gender?: string;
   phoneNumber: string;
-  address: string;
-  email: string;
-  dob: Date;
-  insurance: string;
+  address?: string;
+  email?: string;
+  dob?: Date;
+  insurance?: string;
   createdAt: Date;
-  notes: string;
+  notes?: string;
 };
 
 type PatientsContext = {

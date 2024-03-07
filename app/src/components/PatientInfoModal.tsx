@@ -11,7 +11,11 @@ import { PatientsContext } from "../contexts/patientsContext";
 import "../styles/PatientInfoModal.scss";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHospitalUser,
+  faUserPen,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import PatientEditForm from "./PatientEditForm";
 
 const PatientInfoModal = () => {
@@ -32,7 +36,14 @@ const PatientInfoModal = () => {
       >
         <ModalHeader>
           <div className={"modal-header"}>
-            {editPatient ? "Edit Patient Info" : "Patient Info"}
+            <div>
+              {editPatient ? (
+                <FontAwesomeIcon icon={faUserPen} className={"me-2"} />
+              ) : (
+                <FontAwesomeIcon icon={faHospitalUser} className={"me-2"} />
+              )}
+              {editPatient ? "Edit Patient Info" : "Patient Info"}
+            </div>
             <button className="close-button" onClick={handleClose}>
               <FontAwesomeIcon icon={faXmark} />
             </button>
@@ -45,23 +56,26 @@ const PatientInfoModal = () => {
             <div>
               <div className="two-items-row">
                 <p className="info-entry">Name: {selectedPatient?.name}</p>
-                <p className="info-entry">Gender: {selectedPatient?.gender}</p>
+                {/*<p className="info-entry">Gender: {selectedPatient?.gender}</p>*/}
               </div>
               <div className="two-items-row">
                 <p className="info-entry">
                   Phone Number: {selectedPatient?.phoneNumber}
                 </p>
-                <p className="info-entry">
-                  Birthdate: {moment(selectedPatient?.dob).format("MM/DD/YYYY")}
-                </p>
+                {/*<p className="info-entry">*/}
+                {/*  Birthdate: {moment(selectedPatient?.dob).format("MM/DD/YYYY")}*/}
+                {/*</p>*/}
               </div>
+              {/*<div className="row">*/}
+              {/*  <p className="info-entry">*/}
+              {/*    Address: {selectedPatient?.address}*/}
+              {/*  </p>*/}
+              {/*</div>*/}
               <div className="row">
                 <p className="info-entry">
-                  Address: {selectedPatient?.address}
+                  Email:{" "}
+                  {selectedPatient?.email ? selectedPatient?.email : "No data"}
                 </p>
-              </div>
-              <div className="row">
-                <p className="info-entry">Email: {selectedPatient?.email}</p>
               </div>
               <div className="row">
                 <p className="info-entry">
@@ -81,12 +95,21 @@ const PatientInfoModal = () => {
         <ModalActions>
           {!editPatient && (
             <div>
-              <Button positive onClick={() => setEditPatient(true)}>
-                Edit
-              </Button>
-              <Button negative onClick={handleClose}>
-                Close
-              </Button>
+              <Button
+                content={"Edit"}
+                positive
+                onClick={() => setEditPatient(true)}
+                labelPosition="right"
+                icon="edit"
+              />
+
+              <Button
+                content={"Close"}
+                negative
+                onClick={handleClose}
+                labelPosition="right"
+                icon="cancel"
+              />
             </div>
           )}
         </ModalActions>
