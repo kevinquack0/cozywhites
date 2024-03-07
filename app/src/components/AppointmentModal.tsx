@@ -262,13 +262,7 @@ export default function AppointmentModal({
                   options={patients.map((patient: Patient) => {
                     return {
                       key: patient.id,
-                      text:
-                          ( <span
-                          style={{ fontFamily: "monospace", whiteSpace: "pre" }}
-                        >
-                          {formatPatientData(patient, maxLength)}
-                        </span>),
-                        // formatPatientDataWeb(patient, maxLength),
+                      text: `${patient.name} (${patient.phoneNumber})`,
                       value: patient.id,
                     };
                   })}
