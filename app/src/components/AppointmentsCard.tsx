@@ -4,6 +4,7 @@ import { Button } from "semantic-ui-react";
 import { boolean } from "yup";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarCheck} from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./sidebar/searchBar";
 
 const appointmentsData = [
   {
@@ -58,6 +59,14 @@ const appointmentsData = [
 ];
 export default function AppointmentsCard() {
   const [appointments, setAppointments] = useState(appointmentsData);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  let filtered = appointments;
+    if (searchTerm !== "") {
+        filtered = appointments.filter((a) => {
+        return a.patientName.toLowerCase().includes(searchTerm.toLowerCase())|| a.doctorName.toLowerCase().includes(searchTerm.toLowerCase())|| a.time.toLowerCase().includes(searchTerm.toLowerCase());
+        });
+    }
 
   const handleCheckIn = (appointment: any, checked: boolean) => {
     const updatedAppointments = appointments.map((app) => {
@@ -76,6 +85,9 @@ export default function AppointmentsCard() {
           <FontAwesomeIcon icon={faCalendarCheck} className={"me-3"}/>Appointments for Today
         </h1>
       </div>
+      <div className={"flex justify-center mb-7"}>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} short={true} />
+      </div>
       <div className="appointmentsCardWrapper">
         <div className="cardHeader">
           <h3>Patient Name</h3>
@@ -84,7 +96,8 @@ export default function AppointmentsCard() {
           <h3>Action</h3>
         </div>
         <div className="cardBody">
-          {appointments.map((appointment, index) => {
+          {filtered.length > 0 ? (
+          filtered.map((appointment, index) => {
             return (
               <div className="appointmentCard" key={index}>
                 <p>{appointment.patientName}</p>
@@ -115,7 +128,9 @@ export default function AppointmentsCard() {
                 </div>
               </div>
             );
-          })}
+          })): (
+            <div className={"mt-3 text-center font-semibold text-2xl"}>No result found</div>
+          )}
         </div>
       </div>
     </div>

@@ -40,6 +40,15 @@ const AppointmentsTab = () => {
                   setOpenExistingAppointmentModal(true);
                 }}
               >
+                <div className={"mb-3"}>
+                  <p className={"text-2xl font-bold text-gray-600"}>
+                    {appointment.start.toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
                 <div className="header text-center">
                   <p className={"text-xl font-semibold"}>
                     {appointment.start.toLocaleTimeString("en-US", {

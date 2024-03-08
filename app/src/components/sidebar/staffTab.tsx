@@ -25,7 +25,7 @@ const StaffTab = () => {
             return (
               <div
                 key={index}
-                className="w-full flex flex-col justify-center items-center py-2 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
+                className={`${selectedStaff?.id === staff.id?"border-2 border-primary":""} w-full flex flex-col justify-center items-center py-2 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer`}
                 onClick={() => {
                   setSelectedStaff(staff);
                 }}

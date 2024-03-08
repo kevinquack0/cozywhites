@@ -48,14 +48,14 @@ const ConfirmCancelModal = ({ open, setOpen }: any) => {
             }
           }}
         >
-          Delete Appointment
+          Cancel
         </button>
         {/*Cancel button*/}
         <button
           className="px-3 py-2 bg-gray-500 rounded text-white hover:bg-gray-400 font-semibold"
           onClick={() => setOpen(false)}
         >
-          Cancel
+          Close
         </button>
       </section>
     </Modal>
