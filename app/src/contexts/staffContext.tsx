@@ -4,8 +4,8 @@ import { Patient, PatientsContext } from "./patientsContext";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 export const staffData = [
-  { id: "1", name: "Dr.Smith", type: "Dentist", avatar: dent },
-  { id: "2", name: "John grey", type: "Hygienist", avatar: hyg },
+  { id: "1", name: "Dr. Smith", type: "Dentist", avatar: dent },
+  { id: "2", name: "John Grey", type: "Hygienist", avatar: hyg },
 ];
 
 type Staff = {

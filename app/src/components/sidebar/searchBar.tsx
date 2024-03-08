@@ -4,14 +4,16 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 type Props = {
   searchTerm: string;
   setSearchTerm: (searchTerm: string) => void;
+  short?: boolean;
 };
 
-const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
+const SearchBar = ({ searchTerm, setSearchTerm, short }: Props) => {
   return (
-    <div className={"relative w-3/4"}>
+    <div className={`relative ${short?"w-3/12":"w-3/4"} `}>
       {/*Input field*/}
       <input
         type="text"
+        placeholder="Search..."
         id="table-filter"
         className="w-full ps-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
         value={searchTerm}

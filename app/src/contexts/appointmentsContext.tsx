@@ -10,6 +10,7 @@ export type Appointment = {
   staff: string;
   staffId?: string | number;
   clientId?: string | number;
+  checkIn: boolean;
 };
 
 type AppointmentsContextType = {
@@ -32,7 +33,7 @@ type Props = {
 
 const initialAppointments: Appointment[] = [
   {
-    id: 1,
+    id: "1",
     start: new Date("2024-03-06T16:00:00"),
     end: new Date("2024-03-06T17:00:00"),
     title: "Checkup with Alice Green",
@@ -41,9 +42,10 @@ const initialAppointments: Appointment[] = [
     staff: "Dr.Smith",
     clientId: 1,
     staffId: 1,
+    checkIn: false,
   },
   {
-    id: 2,
+    id: "2",
     start: new Date("2024-03-06T10:00:00"),
     end: new Date("2024-03-06T11:00:00"),
     title: "Cleaning with James Brown",
@@ -52,6 +54,7 @@ const initialAppointments: Appointment[] = [
     staff: "Dr.Smith",
     clientId: 2,
     staffId: 1,
+    checkIn: false,
   },
 ];
 
@@ -98,6 +101,10 @@ export const AppointmentsProvider = ({ children }: Props) => {
       appointments.filter((appointment) => appointment.id !== appointmentId)
     );
   };
+
+  const checkIn = (appointmentId: string | number) => {
+
+  }
 
   return (
     <AppointmentsContext.Provider

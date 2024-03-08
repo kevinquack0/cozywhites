@@ -9,6 +9,7 @@ const AppointmentsTab = () => {
     setSelectedAppointment,
     setOpenExistingAppointmentModal,
   } = useContext(AppointmentsContext);
+  const { patients } = useContext(PatientsContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   let filteredAppointments = appointments;
@@ -20,6 +21,7 @@ const AppointmentsTab = () => {
       );
     });
   }
+
   return (
     <div className="tabContainer flex flex-col items-center py-5 w-full">
       <p className={"text-gray-600"}>
@@ -32,14 +34,23 @@ const AppointmentsTab = () => {
             return (
               <div
                 key={index}
-                className="w-full flex flex-col justify-center items-center py-7 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
+                className="w-full flex flex-col justify-center items-center py-4 px-5 shadow-xl rounded bg-tertiary hover:shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
                 onClick={() => {
                   setSelectedAppointment(appointment);
                   setOpenExistingAppointmentModal(true);
                 }}
               >
-                <div className="header">
-                  <p className={"text-2xl font-semibold"}>
+                <div className={"mb-3"}>
+                  <p className={"text-2xl font-bold text-gray-600"}>
+                    {appointment.start.toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+                <div className="header text-center">
+                  <p className={"text-xl font-semibold"}>
                     {appointment.start.toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "numeric",

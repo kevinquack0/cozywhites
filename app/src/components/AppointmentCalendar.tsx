@@ -6,7 +6,7 @@ import "../styles/AppointmentCalendar.scss";
 import AppointmentModal from "./AppointmentModal";
 import { PatientsContext } from "../contexts/patientsContext";
 import { AppointmentsContext } from "../contexts/appointmentsContext";
-import ExistingAppointmentModal from "./existingAppointmentModal";
+import {StaffContext} from "../contexts/staffContext";
 const localizer = momentLocalizer(moment);
 
 export default function AppointmentCalendar() {
@@ -27,6 +27,11 @@ export default function AppointmentCalendar() {
     openExistingAppointmentModal,
     setOpenExistingAppointmentModal,
   } = useContext(AppointmentsContext);
+  const {selectedStaff} = useContext(StaffContext)
+
+  const filteredByStaff = appointments.filter(
+    (a) => a.staffId == selectedStaff?.id
+  );
 
   // const events = [
   //     {
@@ -36,57 +41,57 @@ export default function AppointmentCalendar() {
   //     },
   // ];
 
-  const handleAddEvent = (appointmentData: any) => {
-    const {
-      start,
-      end,
-      title,
-      type,
-      client,
-      staff,
-      notes,
-      email,
-      phoneNumber,
-      id,
-    } = appointmentData;
-    const filteredEvents = events.filter((event: any) => event.id !== id);
-    createPatient({
-      id: crypto.randomUUID(),
-      name: client,
-      gender: "",
-      phoneNumber: phoneNumber,
-      address: "123 Main St",
-      email: email,
-      dob: new Date("1990-01-01"),
-      insurance: "",
-      createdAt: new Date(),
-      notes: "",
-    });
-    setEvents([
-      ...filteredEvents,
-      {
-        start,
-        end,
-        title,
-        type,
-        client,
-        staff,
-        notes,
-        email,
-        phoneNumber,
-        id,
-      },
-    ]);
-    addAppointment({
-      id,
-      start,
-      end,
-      title,
-      type,
-      client,
-      staff,
-    });
-  };
+  // const handleAddEvent = (appointmentData: any) => {
+  //   const {
+  //     start,
+  //     end,
+  //     title,
+  //     type,
+  //     client,
+  //     staff,
+  //     notes,
+  //     email,
+  //     phoneNumber,
+  //     id,
+  //   } = appointmentData;
+  //   const filteredEvents = events.filter((event: any) => event.id !== id);
+  //   createPatient({
+  //     id: crypto.randomUUID(),
+  //     name: client,
+  //     gender: "",
+  //     phoneNumber: phoneNumber,
+  //     address: "123 Main St",
+  //     email: email,
+  //     dob: new Date("1990-01-01"),
+  //     insurance: "",
+  //     createdAt: new Date(),
+  //     notes: "",
+  //   });
+  //   setEvents([
+  //     ...filteredEvents,
+  //     {
+  //       start,
+  //       end,
+  //       title,
+  //       type,
+  //       client,
+  //       staff,
+  //       notes,
+  //       email,
+  //       phoneNumber,
+  //       id,
+  //     },
+  //   ]);
+  //   addAppointment({
+  //     id,
+  //     start,
+  //     end,
+  //     title,
+  //     type,
+  //     client,
+  //     staff,
+  //   });
+  // };
 
   const handleSelectSlot = (slotInfo: SlotInfo) => {
     setSlotInfo(slotInfo);
@@ -135,7 +140,7 @@ export default function AppointmentCalendar() {
       <div className="calendarWrapper">
         <Calendar
           localizer={localizer}
-          events={appointments}
+          events={filteredByStaff}
           startAccessor="start"
           endAccessor="end"
           step={60}
